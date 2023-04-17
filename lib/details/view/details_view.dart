@@ -50,7 +50,9 @@ class DetailsView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed('/signup');
+              },
               child: Container(
                 height: 60,
                 padding: const EdgeInsets.symmetric(vertical: 10),
