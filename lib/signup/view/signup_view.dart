@@ -14,7 +14,9 @@ class SignupView extends GetView<SignupController> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
           icon: Icon(
             Icons.arrow_back,
             color: Colors.indigo.shade500,
@@ -46,24 +48,25 @@ class SignupView extends GetView<SignupController> {
                     child: SizedBox(
                       height: 50,
                       width: 60,
-                      child: DropdownButtonFormField(
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
+                      child: Obx(
+                        () => DropdownButtonFormField(
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          value: controller.title.value,
+                          iconSize: 20,
+                          items: controller.titles
+                              .map(
+                                (element) => DropdownMenuItem(
+                                  value: element,
+                                  child: Text(element),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (value) {
+                            controller.title.value = value.toString();
+                          },
                         ),
-                        value: controller.title.value,
-                        items: const [
-                          DropdownMenuItem(
-                            value: "MR.",
-                            child: Text("Mr."),
-                          ),
-                          DropdownMenuItem(
-                            value: "MS.",
-                            child: Text("Ms."),
-                          ),
-                        ],
-                        onChanged: (value) {
-                          controller.title.value = value.toString();
-                        },
                       ),
                     ),
                   ),
@@ -277,9 +280,9 @@ class SignupView extends GetView<SignupController> {
                         controller.pickDate(context: context);
                       },
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "DOB",
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Obx(
+                          () => Text(controller.dob.value),
                         ),
                       ),
                     ),
@@ -291,22 +294,35 @@ class SignupView extends GetView<SignupController> {
               height: 20,
             ),
             GestureDetector(
-              onTap: () {},
-              child: AnimatedContainer(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                duration: const Duration(milliseconds: 500),
-                decoration: BoxDecoration(
-                  color: Colors.indigo.shade500,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  "REGISTER & CONTINUE",
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
+              onTap: () {
+                controller.registerAccount();
+              },
+              child: Obx(
+                () => AnimatedContainer(
+                  height: 50,
+                  width: controller.isLoading.isTrue
+                      ? 50
+                      : MediaQuery.of(context).size.width,
+                  duration: const Duration(milliseconds: 500),
+                  decoration: BoxDecoration(
+                    color: controller.isLoading.isTrue
+                        ? Colors.white
+                        : Colors.indigo.shade500,
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  alignment: Alignment.center,
+                  child: controller.isLoading.isTrue
+                      ? CircularProgressIndicator(
+                          strokeWidth: 1,
+                          backgroundColor: Colors.indigo.shade500,
+                        )
+                      : Text(
+                          "REGISTER & CONTINUE",
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                 ),
               ),
             )

@@ -3,30 +3,16 @@ import 'package:cars/details/view/details_view.dart';
 import 'package:cars/home/view/home_view.dart';
 import 'package:cars/login/view/login_view.dart';
 import 'package:cars/signup/view/signup_view.dart';
+import 'package:cars/splash/views/splash_view.dart';
+import 'package:cars/suspended/views/suspended_view.dart';
+import 'package:cars/verification/views/verification_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
-  List<String> args = [
-    "a",
-    "b",
-    "c",
-    "d",
-  ];
-
-  print(args.length);
-
-  List<String> args2 = [
-    ...args, // "a", "b", "c", "d"
-    "e",
-    "f",
-    "g",
-    "h",
-  ];
-
-  print(args2.length);
-
+void main() async {
+  await GetStorage.init();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
@@ -42,8 +28,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/details",
+      initialRoute: "/splash",
+      initialBinding: StorageBindings(),
       getPages: [
+        GetPage(
+          name: '/splash',
+          page: () => SplashView(),
+          binding: SplashBinding(),
+        ),
         GetPage(
           name: '/details',
           page: () => DetailsView(),
@@ -64,6 +56,15 @@ class MyApp extends StatelessWidget {
           page: () => HomeView(),
           binding: HomeBindings(),
         ),
+        GetPage(
+          name: '/verify',
+          page: () => VerificationView(),
+          binding: VerificationBindings(),
+        ),
+        GetPage(
+          name: '/suspended',
+          page: () => SuspendedView(),
+        )
       ],
       title: 'Flutter Demo',
       theme: ThemeData(
