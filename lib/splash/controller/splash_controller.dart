@@ -77,7 +77,6 @@ class SplashController extends GetxController {
 
           storageController.saveUser(user);
           if (user.status == 'pending') {
-            print('Hello World');
             Get.offAllNamed('/verify');
           } else if (user.status == 'suspended') {
             Get.offAllNamed('/suspended');
