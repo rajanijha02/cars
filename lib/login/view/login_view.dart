@@ -68,7 +68,7 @@ class LoginView extends GetView<LoginController> {
                           },
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Email',
+                            hintText: 'Phone',
                             hintStyle: TextStyle(
                               color: Colors.grey.shade600,
                               fontSize: 17,
@@ -169,28 +169,35 @@ class LoginView extends GetView<LoginController> {
             const SizedBox(
               height: 20,
             ),
-            InkWell(
-              onTap: () {
-                Get.offAndToNamed('/home');
-              },
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.indigo.shade500,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                alignment: Alignment.center,
-                child: const Text(
-                  'LOGIN',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+            Obx(
+              () => InkWell(
+                onTap: () {
+                  controller.login();
+                },
+                child: controller.isLoading.isTrue
+                    ? Container(
+                        alignment: Alignment.center,
+                        child: const CircularProgressIndicator(),
+                      )
+                    : Container(
+                        height: 50,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.indigo.shade500,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'LOGIN',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
               ),
-            )
+            ),
           ],
         ),
       ),

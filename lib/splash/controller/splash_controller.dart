@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -34,7 +35,9 @@ class SplashController extends GetxController {
       String? token = storageController.token;
 
       if (token == null) {
-        Get.offNamed('/details');
+        Timer(const Duration(seconds: 3), () {
+          Get.offNamed('/details');
+        });
       } else {
         // validate token
         // if token is valid, navigate to home page

@@ -1,6 +1,6 @@
 import 'package:cars/bindings.dart';
 import 'package:cars/details/view/details_view.dart';
-import 'package:cars/home/view/home_view.dart';
+import 'package:cars/home/views/home_view.dart';
 import 'package:cars/login/view/login_view.dart';
 import 'package:cars/signup/view/signup_view.dart';
 import 'package:cars/splash/views/splash_view.dart';
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
       ],
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
       ),
     );
   }

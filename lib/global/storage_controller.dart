@@ -17,5 +17,9 @@ class StorageController extends GetxController {
     this.user.value = user;
   }
 
+  void logout() {
+    storage.remove('token');
+    Get.offAllNamed('/login');
+  }
   
 }
